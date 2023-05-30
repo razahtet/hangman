@@ -1,7 +1,7 @@
 import random  #random Import
-from xtermcolor import colorize  #color words in the output
+from termcolor import colored  #color words in the output
 
-print("Welcome to " + colorize("Hangman!", ansi=4))
+print("Welcome to " + colored("Hangman!", "blue"))
 
 wordArray = []  #wordsArray
 hangWords = open("words.txt", "r")  #read the file from words.txt
@@ -14,7 +14,8 @@ wordMan = random.choice(
 wordMan = wordMan.strip()  #the hangman word is stripped from any whitespaces
 
 print("Your word is a " +
-      colorize(str(len(wordMan)) + "-letter word.", ansi=3))  #hangman word in yellow (looks orange)
+      colored(str(len(wordMan)) + "-letter word.",
+              "yellow"))  #hangman word in yellow (looks orange)
 
 
 def printOrigin():  #print ("_ _ _ _)
@@ -52,23 +53,23 @@ while letT != wordMan:  #while letT != wordMan
                 for letx in wordMan:  #for character in the hangman word
                     if letx == letterG:  #if character = the input
                         correctC = True  #makes it not go to the correctC == False statement
-                        print(colorize("Correct!", ansi=22))
+                        print(colored("Correct!", "green"))
                         foundArray.append(
                             letterG
                         )  #foundArray appends it to know that the player found one letter
                 if correctC == False:
-                    print(colorize("Incorrect!", ansi=1), end=" ")
+                    print(colored("Incorrect!", "red"), end=" ")
                     numGu += 1  #number of Guesses +1
                 if actualG - numGu == 0:  #checks if the player has zero guesses or not, if so he or she __import__
                     break
                     #he or she lost, breaks while loop
                 if actualG - numGu > 1 or actualG - numGu == 0:  #if guesses left > 1, print with 'guesses'
                     print("You have " +
-                          colorize(str(actualG - numGu), ansi=3) +
+                          colored(str(actualG - numGu), "yellow") +
                           " guesses left!")
                 else:  #else print with 'guess' (same down into the false area)
                     print("You have " +
-                          colorize(str(actualG - numGu), ansi=3) +
+                          colored(str(actualG - numGu), "yellow") +
                           " guess left!")
                 if len(foundArray) == 0:
                     printOrigin()  #"_ _ _ _"... (no letters found)
@@ -105,7 +106,7 @@ while letT != wordMan:  #while letT != wordMan
                         solvedC = True  #if so, solvedC = True
                         print("")  #newline
                         print(
-                            colorize(letT, ansi=22) +
+                            colored(letT, "green") +
                             " was the word! You won! Run again to try another word."
                         )
                         break
@@ -122,6 +123,6 @@ while letT != wordMan:  #while letT != wordMan
         #breaks because there are no more guesses left
 
 if solvedC == False:  #if False, print this since he or she lost, if not, just exit the program
-    print("You failed! The word was " + colorize(wordMan, ansi=1) +
-          ". Press the " + colorize("Run Button", ansi=22) +
+    print("You failed! The word was " + colored(wordMan, "red") +
+          ". Press the " + colored("Run Button", "green") +
           " to Try Again.")  #reveals word in red, and to run again in green
